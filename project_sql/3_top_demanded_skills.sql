@@ -50,3 +50,19 @@ Programming and Visualization Tools like Python, Tableau, and Power BI are essen
   }
 ]
 */
+
+SELECT
+  sd.skills,
+  COUNT(j.job_id) AS demant_count
+FROM
+  skills_job_dim sjd
+INNER JOIN job_postings_fact j ON sjd.job_id = j.job_id
+INNER JOIN skills_dim sd ON sjd.skill_id = sd.skill_id
+WHERE
+  j.job_title_short = 'Data Analyst'
+GROUP BY
+  sd.skills
+ORDER BY
+  COUNT(j.job_id) DESC
+LIMIT
+  5
